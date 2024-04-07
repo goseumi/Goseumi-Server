@@ -9,11 +9,17 @@ import project.goseumi.domain.value.UserStatus;
 @Entity
 public class Member extends BaseEntity {
 
+    @Enumerated(EnumType.STRING)
     private Role role;
+
     private String phoneNumber;
+
     private String email;
+
     private String password;
-    private UserStatus status;
+
+    @Enumerated(EnumType.STRING)
+    private UserStatus userStatus;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
@@ -21,7 +27,9 @@ public class Member extends BaseEntity {
 
 
     private Boolean withdraw; //회원탈퇴 여부
+
     private Boolean mailAuth;
+
     private Boolean schoolAuth;
 
 }
