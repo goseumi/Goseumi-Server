@@ -2,7 +2,7 @@ package project.goseumi.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import project.goseumi.domain.value.BoardState;
+import project.goseumi.domain.value.VisibleState;
 
 @Entity
 @Getter
@@ -19,7 +19,7 @@ public class Market extends BaseEntity {
     private Long price;
 
     @Enumerated(EnumType.STRING)
-    private BoardState state;
+    private VisibleState state;
 
     private boolean sell;
 }

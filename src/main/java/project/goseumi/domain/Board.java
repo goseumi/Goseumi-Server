@@ -2,7 +2,7 @@ package project.goseumi.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import project.goseumi.domain.value.BoardState;
+import project.goseumi.domain.value.VisibleState;
 
 @Entity
 @Getter
@@ -25,5 +25,5 @@ public class Board extends BaseEntity {
     private String content;
 
     @Enumerated(EnumType.STRING)
-    private BoardState boardState;
+    private VisibleState state;
 }

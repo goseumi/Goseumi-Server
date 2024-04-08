@@ -2,7 +2,7 @@ package project.goseumi.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
-import project.goseumi.domain.value.BoardState;
+import project.goseumi.domain.value.VisibleState;
 
 import java.util.List;
 
@@ -21,5 +21,5 @@ public class Comment extends BaseEntity {
     private String comment;
 
     @Enumerated(EnumType.STRING)
-    private BoardState state;
+    private VisibleState state;
 }
