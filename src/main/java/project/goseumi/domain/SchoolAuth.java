@@ -14,6 +14,10 @@ public class SchoolAuth extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "school_id")
+    private School school;
+
     private boolean accept;
 
     private String rejectReason; //인증거부사유
