@@ -2,6 +2,7 @@ package project.goseumi.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import project.goseumi.domain.value.BooleanState;
 import project.goseumi.domain.value.Role;
 import project.goseumi.domain.value.UserStatus;
 
@@ -10,26 +11,30 @@ import project.goseumi.domain.value.UserStatus;
 public class Member extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
-    private Role role;
+    private Role role; //유저 역할 USER, ADMIN, GUEST
 
-    private String phoneNumber;
+    private String phoneNumber; //전화번호
 
-    private String email;
+    private String nickname; //닉네임
 
-    private String password;
+    private String email; //이메일
+
+    private String password; //비밀번호
 
     @Enumerated(EnumType.STRING)
-    private UserStatus userStatus;
+    private UserStatus status; //유저 상태 ACTIVE, BANNED, DORMANCY
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
     private School school;
 
+    @Enumerated(EnumType.STRING)
+    private BooleanState withdraw; //회원탈퇴 여부
 
-    private Boolean withdraw; //회원탈퇴 여부
+    @Enumerated(EnumType.STRING)
+    private BooleanState mailAuth; //메일인증 여부
 
-    private Boolean mailAuth;
-
-    private Boolean schoolAuth;
+    @Enumerated(EnumType.STRING)
+    private BooleanState schoolAuth; //학교인증 여부
 
 }

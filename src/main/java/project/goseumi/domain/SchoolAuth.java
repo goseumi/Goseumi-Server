@@ -3,25 +3,23 @@ package project.goseumi.domain;
 import jakarta.persistence.*;
 import lombok.Getter;
 import project.goseumi.domain.value.BooleanState;
-import project.goseumi.domain.value.VisibleState;
 
 @Entity
 @Getter
-public class Market extends BaseEntity {
+public class SchoolAuth extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private String title;
-
-    private String content;
-
-    private Long price;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "school_id")
+    private School school;
 
     @Enumerated(EnumType.STRING)
-    private VisibleState state;
+    private BooleanState accept;
 
-    @Enumerated(EnumType.STRING)
-    private BooleanState sell;
+    private String rejectReason; //인증거부사유
+
+    private String url; //인증용 사진 학생증 url
 }
