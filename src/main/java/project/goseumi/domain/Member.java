@@ -14,6 +14,8 @@ public class Member extends BaseEntity {
 
     private String phoneNumber;
 
+    private String nickname;
+
     private String email;
 
     private String password;
@@ -24,7 +26,6 @@ public class Member extends BaseEntity {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "school_id")
     private School school;
-
 
     private Boolean withdraw; //회원탈퇴 여부
 
