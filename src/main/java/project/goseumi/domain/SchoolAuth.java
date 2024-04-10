@@ -8,7 +8,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class MailAuth extends BaseEntity {
+public class SchoolAuth extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "member_id")
@@ -16,5 +16,7 @@ public class MailAuth extends BaseEntity {
 
     private boolean accept;
 
-    private String rejectReason;
+    private String rejectReason; //인증거부사유
+
+    private String url; //인증용 사진 학생증 url
 }
