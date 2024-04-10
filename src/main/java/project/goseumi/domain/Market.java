@@ -2,6 +2,7 @@ package project.goseumi.domain;
 
 import jakarta.persistence.*;
 import lombok.Getter;
+import project.goseumi.domain.value.BooleanState;
 import project.goseumi.domain.value.VisibleState;
 
 @Entity
@@ -21,5 +22,6 @@ public class Market extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private VisibleState state;
 
-    private boolean sell;
+    @Enumerated(EnumType.STRING)
+    private BooleanState sell;
 }

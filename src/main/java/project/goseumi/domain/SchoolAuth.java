@@ -1,10 +1,8 @@
 package project.goseumi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.Getter;
+import project.goseumi.domain.value.BooleanState;
 
 @Entity
 @Getter
@@ -18,7 +16,8 @@ public class SchoolAuth extends BaseEntity {
     @JoinColumn(name = "school_id")
     private School school;
 
-    private boolean accept;
+    @Enumerated(EnumType.STRING)
+    private BooleanState accept;
 
     private String rejectReason; //인증거부사유
 
