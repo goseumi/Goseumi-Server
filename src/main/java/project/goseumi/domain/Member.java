@@ -13,7 +13,7 @@ public class Member extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private Role role; //유저 역할 USER, ADMIN, GUEST
 
-    private String phoneNumber; //전화번호
+    private String phone; //전화번호
 
     private String nickname; //닉네임
 
@@ -36,5 +36,12 @@ public class Member extends BaseEntity {
 
     @Enumerated(EnumType.STRING)
     private BooleanState schoolAuth; //학교인증 여부
+
+    protected Member() {
+        withdraw = BooleanState.NO;
+        schoolAuth = BooleanState.NO;
+        mailAuth = BooleanState.NO;
+        role = Role.USER;
+    }
 
 }
