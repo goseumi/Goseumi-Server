@@ -8,7 +8,8 @@ public enum MemberError implements GoseumiError {
 
     USER_LOGIN_FAIL("01", "회원 인증에 실패했습니다."),
     EMAIL_DUPLICATE("02", "중복된 이메일입니다."),
-    NICKNAME_DUPLICATE("03", "중복된 닉네임입니다.");
+    NICKNAME_DUPLICATE("03", "중복된 닉네임입니다."),
+    PASSWORD_MISMATCH("04", "비밀번호 확인이 일치하지 않습니다.");
 
     private final String errorCode;
     private final String message;
