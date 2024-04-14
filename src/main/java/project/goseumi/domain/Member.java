@@ -1,7 +1,9 @@
 package project.goseumi.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
+import project.goseumi.controller.dto.request.SignUpRequest;
 import project.goseumi.domain.value.BooleanState;
 import project.goseumi.domain.value.Role;
 import project.goseumi.domain.value.UserStatus;
@@ -42,6 +44,24 @@ public class Member extends BaseEntity {
         schoolAuth = BooleanState.NO;
         mailAuth = BooleanState.NO;
         role = Role.USER;
+        status = UserStatus.ACTIVE;
     }
 
+    @Builder
+    protected Member(String email, String password, String phone, String nickname) {
+        this();
+        this.email = email;
+        this.password = password;
+        this.phone = phone;
+        this.nickname = nickname;
+    }
+
+    public static Member signUp(SignUpRequest signUpRequest, String encodedPassword) {
+        return Member.builder()
+                .email(signUpRequest.getEmail())
+                .password(encodedPassword)
+                .phone(signUpRequest.getPhone())
+                .nickname(signUpRequest.getNickname())
+                .build();
+    }
 }
