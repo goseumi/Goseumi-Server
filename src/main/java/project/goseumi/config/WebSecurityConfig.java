@@ -28,7 +28,7 @@ public class WebSecurityConfig {
 
                 //경로별 인가 작업
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/login", "/", "/join").permitAll() //전체 허용
+                        .requestMatchers("/api/member/login", "/", "/api/member/signup").permitAll() //전체 허용
                         .requestMatchers("/admin").hasRole("ADMIN") ///admin 경로는 어드민 권환만 허용
                         .anyRequest().authenticated()) //그 외 요청은 로그인 한 사용자
 
