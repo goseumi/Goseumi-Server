@@ -4,7 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import project.goseumi.controller.dto.request.LoginRequest;
 import project.goseumi.controller.dto.request.SignUpRequest;
+import project.goseumi.controller.dto.response.LoginResponse;
 import project.goseumi.domain.Member;
 import project.goseumi.exception.BusinessException;
 import project.goseumi.exception.error.MemberError;
@@ -61,5 +63,22 @@ public class MemberService {
             throw new BusinessException(MemberError.PASSWORD_MISMATCH);
         }
         return passwordEncoder.encode(password);
+    }
+
+    public LoginResponse loginWithEmailAndPassword(LoginRequest loginRequest) {
+        String email = loginRequest.getEmail();
+        String password = loginRequest.getPassword();
+
+        Member member = memberRepository.findByEmail(email)
+                .orElseThrow(() -> new BusinessException(MemberError.USER_LOGIN_FAIL));
+        validatePassword(password, member.getPassword());
+        return null;
+
+    }
+
+    private void validatePassword(final String inputPassword, final String expectedPassword) {
+        if (!passwordEncoder.matches(inputPassword, expectedPassword)) {
+            throw new BusinessException(MemberError.USER_LOGIN_FAIL);
+        }
     }
 }
