@@ -34,9 +34,10 @@ dependencies {
 	//p6spy
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.9.0'
 	//jwt
-	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
-	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
-	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+//	implementation 'io.jsonwebtoken:jjwt-api:0.12.3'
+//	implementation 'io.jsonwebtoken:jjwt-impl:0.12.3'
+//	implementation 'io.jsonwebtoken:jjwt-jackson:0.12.3'
+	implementation 'io.jsonwebtoken:jjwt:0.9.1'
 	annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 
 	compileOnly 'org.projectlombok:lombok'
