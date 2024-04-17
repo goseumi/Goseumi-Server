@@ -3,14 +3,21 @@ package project.goseumi.domain;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 import project.goseumi.controller.dto.request.SignUpRequest;
 import project.goseumi.domain.value.BooleanState;
 import project.goseumi.domain.value.Role;
 import project.goseumi.domain.value.UserStatus;
 
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+
 @Getter
 @Entity
-public class Member extends BaseEntity {
+public class Member extends BaseEntity implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role; //유저 역할 USER, ADMIN, GUEST
@@ -63,5 +70,42 @@ public class Member extends BaseEntity {
                 .phone(signUpRequest.getPhone())
                 .nickname(signUpRequest.getNickname())
                 .build();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        authorities.add(new SimpleGrantedAuthority(role.name()));
+        return authorities;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
