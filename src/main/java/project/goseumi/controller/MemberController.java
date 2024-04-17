@@ -8,7 +8,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.goseumi.controller.dto.base.ResponseDto;
+import project.goseumi.controller.dto.request.LoginRequest;
 import project.goseumi.controller.dto.request.SignUpRequest;
+import project.goseumi.controller.dto.response.LoginResponse;
 import project.goseumi.controller.dto.response.SignUpResponse;
 import project.goseumi.service.MemberService;
 
@@ -26,6 +28,11 @@ public class MemberController {
         log.info("SignUp Member : " + newSignUpMemberId);
         SignUpResponse signUpResponse = new SignUpResponse(newSignUpMemberId);
         return ResponseDto.of(signUpResponse, "new Member account has been created.");
+    }
 
+    @PostMapping("/login")
+    public ResponseDto<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
+        LoginResponse loginResponse = memberService.loginWithEmailAndPassword(loginRequest);
+        return null;
     }
 }
