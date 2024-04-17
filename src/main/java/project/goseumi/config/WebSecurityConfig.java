@@ -18,24 +18,7 @@ public class WebSecurityConfig {
         //csrf, cors disable
         http
                 .csrf((csrf) -> csrf.disable())
-                .cors((cors) -> cors.disable())
-
-                //Form 로그인 방식 disable
-                .formLogin((auth) -> auth.disable())
-
-                //http basic 인증 방식 disable
-                .httpBasic((auth) -> auth.disable())
-
-                //경로별 인가 작업
-                .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/api/member/login", "/", "/api/member/signup").permitAll() //전체 허용
-                        .requestMatchers("/admin").hasRole("ADMIN") ///admin 경로는 어드민 권환만 허용
-                        .anyRequest().authenticated()) //그 외 요청은 로그인 한 사용자
-
-                //세션 설정(jwt 방식에서는 세션을 stateless 상태로 관리해야한다.)
-                .sessionManagement((session) -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-
+                .cors((cors) -> cors.disable());
         return http.build();
     }
 

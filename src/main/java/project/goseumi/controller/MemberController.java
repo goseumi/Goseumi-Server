@@ -29,10 +29,4 @@ public class MemberController {
         SignUpResponse signUpResponse = new SignUpResponse(newSignUpMemberId);
         return ResponseDto.of(signUpResponse, "new Member account has been created.");
     }
-
-    @PostMapping("/login")
-    public ResponseDto<LoginResponse> login(@Valid @RequestBody LoginRequest loginRequest) {
-        LoginResponse loginResponse = memberService.loginWithEmailAndPassword(loginRequest);
-        return null;
-    }
 }
