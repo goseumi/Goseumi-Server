@@ -18,7 +18,20 @@ public class WebSecurityConfig {
         //csrf, cors disable
         http
                 .csrf((csrf) -> csrf.disable())
-                .cors((cors) -> cors.disable());
+                .cors((cors) -> cors.disable())
+
+                //formLogin, httpBasic disable
+                .formLogin((auth) -> auth.disable())
+                .httpBasic((auth) -> auth.disable())
+
+                //api 접근권한 설정
+                .authorizeHttpRequests((auth) -> auth
+                        .anyRequest().permitAll())
+
+                //jwt 세션 stateless
+                .sessionManagement((session) -> session
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
+
         return http.build();
     }
 
