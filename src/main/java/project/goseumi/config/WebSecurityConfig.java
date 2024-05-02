@@ -11,6 +11,9 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import project.goseumi.repository.MemberRepository;
+import project.goseumi.security.jwt.JwtFilter;
+import project.goseumi.security.jwt.JwtUtil;
 import project.goseumi.security.jwt.LoginFilter;
 
 @Configuration
@@ -18,9 +21,13 @@ import project.goseumi.security.jwt.LoginFilter;
 public class WebSecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
+    private final JwtUtil jwtUtil;
+    private final MemberRepository memberRepository;
 
-    public WebSecurityConfig(AuthenticationConfiguration authenticationConfiguration) {
+    public WebSecurityConfig(AuthenticationConfiguration authenticationConfiguration, JwtUtil jwtUtil, MemberRepository memberRepository) {
         this.authenticationConfiguration = authenticationConfiguration;
+        this.jwtUtil = jwtUtil;
+        this.memberRepository = memberRepository;
     }
 
     @Bean
@@ -44,7 +51,8 @@ public class WebSecurityConfig {
                         .anyRequest().permitAll())
 
                 //jwt 필터 추가
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration)), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtFilter(jwtUtil, memberRepository), LoginFilter.class)
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtUtil), UsernamePasswordAuthenticationFilter.class)
 
                 //jwt 세션 stateless
                 .sessionManagement((session) -> session
