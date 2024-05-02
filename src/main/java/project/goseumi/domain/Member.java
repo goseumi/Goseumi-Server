@@ -17,7 +17,7 @@ import java.util.List;
 
 @Getter
 @Entity
-public class Member extends BaseEntity {
+public class Member extends BaseEntity implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Role role; //유저 역할 USER, ADMIN, GUEST
@@ -70,5 +70,41 @@ public class Member extends BaseEntity {
                 .phone(signUpRequest.getPhone())
                 .nickname(signUpRequest.getNickname())
                 .build();
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        //Role값 반환
+        return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    @Override
+    public String getUsername() {
+        return email;
+    }
+
+    @Override
+    public String getPassword() {
+        return password;
+    }
+
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
+
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
