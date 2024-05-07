@@ -48,6 +48,8 @@ public class WebSecurityConfig {
 
                 //api 접근권한 설정
                 .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/", "/login", "/api/member/signup").permitAll()
+                        .requestMatchers("/api/**").authenticated()
                         .anyRequest().permitAll())
 
                 //jwt 필터 추가
