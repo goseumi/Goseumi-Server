@@ -50,6 +50,7 @@ public class WebSecurityConfig {
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/", "/login", "/api/member/signup").permitAll()
                         .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
 
                 //jwt 필터 추가
