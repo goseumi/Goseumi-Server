@@ -49,7 +49,7 @@ public class WebSecurityConfig {
                 //api 접근권한 설정
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/", "/login", "/api/member/signup").permitAll()
-                        .requestMatchers("/api/**").authenticated()
+                        .requestMatchers("/api/*").authenticated()
                         .requestMatchers("/api/admin/**").hasRole("ADMIN")
                         .anyRequest().permitAll())
 
