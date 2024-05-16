@@ -1,9 +1,12 @@
 package project.goseumi.domain;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
 import lombok.Builder;
 import lombok.Getter;
 import project.goseumi.controller.dto.request.CreateCategoryRequestDto;
+import project.goseumi.domain.value.VisibleState;
 
 @Entity
 @Getter
@@ -11,12 +14,16 @@ public class BoardCategory extends BaseEntity {
 
     private String name;
 
-    protected BoardCategory() {
+    @Enumerated(EnumType.STRING)
+    private VisibleState state;
 
+    protected BoardCategory() {
+        state = VisibleState.VISIBLE;
     }
 
     @Builder
     protected BoardCategory(String name) {
+        this();
         this.name = name;
     }
 
@@ -28,5 +35,13 @@ public class BoardCategory extends BaseEntity {
 
     public void rename(String rename) {
         this.name = rename;
+    }
+
+    public void visibleDeleted() {
+        this.state = VisibleState.DELETE;
+    }
+
+    public void visibleActive() {
+        this.state = VisibleState.VISIBLE;
     }
 }

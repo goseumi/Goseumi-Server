@@ -30,4 +30,10 @@ public class BoardCategoryAdminController {
         RenameCategoryResponseDto renameCategoryResponseDto = boardCategoryService.renameCategory(id, createCategoryRequestDto);
         return ResponseDto.of(renameCategoryResponseDto, "renamed Complete Category");
     }
+
+    @DeleteMapping("/remove/{id}")
+    public ResponseDto<String> deleteCategory(@PathVariable("id") Long id) {
+        boardCategoryService.deleteCategory(id);
+        return ResponseDto.of("deleted BoardCategory by id " + id);
+    }
 }

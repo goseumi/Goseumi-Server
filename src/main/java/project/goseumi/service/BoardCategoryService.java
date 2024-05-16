@@ -27,17 +27,23 @@ public class BoardCategoryService {
 
     @Transactional
     public RenameCategoryResponseDto renameCategory(Long id, CreateCategoryRequestDto createCategoryRequestDto) {
-        BoardCategory boardCategory = boardCategoryRepository.findById(id).orElseThrow(
-                () -> new BusinessException(BoardCategoryError.NOT_FOUND_CATEGORY_BY_ID)
-        );
-        String before = boardCategory.getName();
+        BoardCategory findBoardCategory = boardCategoryRepository.findById(id).orElseThrow(
+                () -> new BusinessException(BoardCategoryError.NOT_FOUND_CATEGORY_BY_ID));
+        String before = findBoardCategory.getName();
 
-        boardCategory.rename(createCategoryRequestDto.getName());
+        findBoardCategory.rename(createCategoryRequestDto.getName());
 
-        String after = boardCategory.getName();
+        String after = findBoardCategory.getName();
 
         return new RenameCategoryResponseDto(before, after);
 
     }
 
+    @Transactional
+    public void deleteCategory(Long id) {
+        BoardCategory findBoardCategory = boardCategoryRepository.findById(id).orElseThrow(
+                () -> new BusinessException(BoardCategoryError.NOT_FOUND_CATEGORY_BY_ID));
+
+        findBoardCategory.visibleDeleted();
+    }
 }
