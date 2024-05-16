@@ -25,4 +25,8 @@ public class BoardCategory extends BaseEntity {
                 .name(registerBoardCategoryRequestDto.getName())
                 .build();
     }
+
+    public void rename(String rename) {
+        this.name = rename;
+    }
 }
