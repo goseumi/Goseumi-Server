@@ -34,6 +34,12 @@ public class BoardCategoryAdminController {
     @DeleteMapping("/remove/{id}")
     public ResponseDto<String> deleteCategory(@PathVariable("id") Long id) {
         boardCategoryService.deleteCategory(id);
-        return ResponseDto.of("deleted BoardCategory by id " + id);
+        return ResponseDto.of("deleted BoardCategory by id : " + id);
+    }
+
+    @PatchMapping("/active/{id}")
+    public ResponseDto<String> activeCategory(@PathVariable("id") Long id) {
+        boardCategoryService.activeCategory(id);
+        return ResponseDto.of("active BoardCategory by id : " + id);
     }
 }

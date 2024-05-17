@@ -14,6 +14,7 @@ import project.goseumi.repository.BoardCategoryRepository;
 @Service
 @Slf4j
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class BoardCategoryService {
 
     private final BoardCategoryRepository boardCategoryRepository;
@@ -45,5 +46,13 @@ public class BoardCategoryService {
                 () -> new BusinessException(BoardCategoryError.NOT_FOUND_CATEGORY_BY_ID));
 
         findBoardCategory.visibleDeleted();
+    }
+
+    @Transactional
+    public void activeCategory(Long id) {
+        BoardCategory findBoardCategory = boardCategoryRepository.findById(id).orElseThrow(
+                () -> new BusinessException(BoardCategoryError.NOT_FOUND_CATEGORY_BY_ID));
+
+        findBoardCategory.visibleActive();
     }
 }
