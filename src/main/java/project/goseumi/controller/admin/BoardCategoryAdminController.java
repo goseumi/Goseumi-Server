@@ -4,11 +4,16 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import project.goseumi.controller.dto.base.PageDto;
+import project.goseumi.controller.dto.base.PageResponseDto;
 import project.goseumi.controller.dto.base.ResponseDto;
 import project.goseumi.controller.dto.request.CreateCategoryRequestDto;
+import project.goseumi.controller.dto.response.CategoryResponse;
 import project.goseumi.controller.dto.response.CreateCategoryResponseDto;
 import project.goseumi.controller.dto.response.RenameCategoryResponseDto;
 import project.goseumi.service.BoardCategoryService;
+
+import java.util.List;
 
 @Slf4j
 @RestController
@@ -41,5 +46,15 @@ public class BoardCategoryAdminController {
     public ResponseDto<String> activeCategory(@PathVariable("id") Long id) {
         boardCategoryService.activeCategory(id);
         return ResponseDto.of("active BoardCategory by id : " + id);
+    }
+
+    @GetMapping("")
+    public PageResponseDto<List<CategoryResponse>> getBasicCategoryList(
+            @RequestParam(name = "page", defaultValue = "0") int page
+    ){
+        PageDto pageDto = PageDto.of(page);
+
+        List<CategoryResponse> basicCategoryList = boardCategoryService.getBasicCategoryList(pageDto);
+        return PageResponseDto.of(basicCategoryList, "Get BoardCategory List", pageDto);
     }
 }
