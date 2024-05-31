@@ -11,10 +11,10 @@ public class School extends BaseEntity {
     @Column(nullable = false, length = 50)
     private String name;
 
-    @Column(nullable = false, length = 50)
+    @Column(length = 50)
     private String address;
 
-    @Column(nullable = false)
+    @Column
     private Long addressNumber;
 
     @Column
