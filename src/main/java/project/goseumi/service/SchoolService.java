@@ -12,8 +12,11 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.goseumi.controller.dto.base.PageDto;
+import project.goseumi.controller.dto.request.SchoolModifiedRequest;
 import project.goseumi.controller.dto.response.SchoolResponse;
 import project.goseumi.domain.School;
+import project.goseumi.exception.BusinessException;
+import project.goseumi.exception.error.SchoolError;
 import project.goseumi.repository.SchoolRepository;
 
 import java.util.List;
@@ -93,5 +96,11 @@ public class SchoolService {
         return id != null ? school.id.like("%" + id + "%") : null;
     }
 
+    @Transactional
+    public void modified(SchoolModifiedRequest schoolModifiedRequest) {
+        School school = schoolRepository.findById(schoolModifiedRequest.getId())
+                .orElseThrow(() -> new BusinessException(SchoolError.SCHOOL_FIND_BY_ID_FAIL));
 
+        school.modified(schoolModifiedRequest);
+    }
 }
