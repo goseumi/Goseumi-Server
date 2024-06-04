@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.goseumi.controller.dto.base.PageDto;
 import project.goseumi.controller.dto.request.SchoolModifiedRequest;
+import project.goseumi.controller.dto.request.SchoolRegisterRequest;
 import project.goseumi.controller.dto.response.SchoolResponse;
 import project.goseumi.domain.School;
 import project.goseumi.exception.BusinessException;
@@ -102,5 +103,12 @@ public class SchoolService {
                 .orElseThrow(() -> new BusinessException(SchoolError.SCHOOL_FIND_BY_ID_FAIL));
 
         school.modified(schoolModifiedRequest);
+    }
+
+    @Transactional
+    public void register(SchoolRegisterRequest request) {
+        School school = School.of(request);
+
+        schoolRepository.save(school);
     }
 }

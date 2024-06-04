@@ -3,12 +3,10 @@ package project.goseumi.controller.admin;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.web.bind.annotation.PatchMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import project.goseumi.controller.dto.base.ResponseDto;
 import project.goseumi.controller.dto.request.SchoolModifiedRequest;
+import project.goseumi.controller.dto.request.SchoolRegisterRequest;
 import project.goseumi.service.SchoolService;
 
 @RestController
@@ -20,9 +18,16 @@ public class SchoolAdminController {
     private final SchoolService schoolService;
 
     @PatchMapping("/info")
-    public ResponseDto<String> modifiedSchool(@Valid @RequestBody SchoolModifiedRequest schoolModifiedRequest) {
+    public ResponseDto<Object> modifiedSchool(@Valid @RequestBody SchoolModifiedRequest schoolModifiedRequest) {
         schoolService.modified(schoolModifiedRequest);
 
         return ResponseDto.of("Success modified school information");
+    }
+
+    @PostMapping("")
+    public ResponseDto<Object> registerSchool(@Valid @RequestBody SchoolRegisterRequest schoolRegisterRequest) {
+        schoolService.register(schoolRegisterRequest);
+
+        return ResponseDto.of("Success create new school information");
     }
 }
