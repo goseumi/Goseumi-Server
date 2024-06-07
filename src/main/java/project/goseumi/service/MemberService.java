@@ -142,10 +142,8 @@ public class MemberService {
      * 학교 인증 승인
      */
     @Transactional
-    public Long accessSchoolAuth(
-            HttpServletRequest request,
-            SchoolAuthAccessRequest schoolAuthAccessRequest
-    ) {
+    public Long accessSchoolAuth(SchoolAuthAccessRequest schoolAuthAccessRequest) {
+
         SchoolAuth schoolAuth = schoolAuthRepository.findById(schoolAuthAccessRequest.getId())
                 .orElseThrow(() -> new BusinessException(SchoolAuthError.SCHOOL_AUTH_FIND_BY_ID_FAIL));
 

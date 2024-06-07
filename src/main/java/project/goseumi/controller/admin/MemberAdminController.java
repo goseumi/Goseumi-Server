@@ -21,14 +21,11 @@ public class MemberAdminController {
     private final MemberService memberService;
 
     @PatchMapping("/schoolAuth/access")
-    public ResponseDto<Object> schoolAuthAccess(HttpServletRequest request,
-            @Valid @RequestBody SchoolAuthAccessRequest schoolAuthAccessRequest
-    ) {
+    public ResponseDto<Object> schoolAuthAccess(@Valid @RequestBody SchoolAuthAccessRequest schoolAuthAccessRequest) {
 
-        Long id = memberService.accessSchoolAuth(request, schoolAuthAccessRequest);
+        Long id = memberService.accessSchoolAuth(schoolAuthAccessRequest);
         log.info("Access SchoolAuth id = " + id);
 
         return ResponseDto.of("Accessed SchoolAuth");
     }
-
 }
