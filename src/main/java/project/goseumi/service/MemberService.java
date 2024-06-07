@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import project.goseumi.controller.dto.request.LoginRequest;
-import project.goseumi.controller.dto.request.SchoolAuthAccessRequest;
-import project.goseumi.controller.dto.request.SchoolAuthRequest;
-import project.goseumi.controller.dto.request.SignUpRequest;
+import project.goseumi.controller.dto.request.*;
 import project.goseumi.controller.dto.response.LoginResponse;
 import project.goseumi.domain.Member;
 import project.goseumi.domain.School;
@@ -151,6 +148,19 @@ public class MemberService {
         Member member = schoolAuth.getMember();
 
         member.updateSchoolInfo(schoolAuth.getSchool());
+
+        return schoolAuth.getId();
+    }
+
+    /**
+     * 학교 인증 거부
+     */
+    @Transactional
+    public Long rejectSchoolAuth(SchoolAuthRejectRequest schoolAuthRejectRequest) {
+        SchoolAuth schoolAuth = schoolAuthRepository.findById(schoolAuthRejectRequest.getId())
+                .orElseThrow(() -> new BusinessException(SchoolAuthError.SCHOOL_AUTH_FIND_BY_ID_FAIL));
+
+        schoolAuth.authReject(schoolAuthRejectRequest.getRejectReason());
 
         return schoolAuth.getId();
     }

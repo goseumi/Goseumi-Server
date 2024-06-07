@@ -48,8 +48,8 @@ public class SchoolAuth extends BaseEntity {
         this.rejectReason = "access";
     }
 
-    public void authReject(String message) {
+    public void authReject(String rejectReason) {
         this.accept = BooleanState.NO;
-        this.rejectReason = message;
+        this.rejectReason = rejectReason;
     }
 }

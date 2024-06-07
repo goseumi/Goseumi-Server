@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.goseumi.controller.dto.base.ResponseDto;
 import project.goseumi.controller.dto.request.SchoolAuthAccessRequest;
+import project.goseumi.controller.dto.request.SchoolAuthRejectRequest;
 import project.goseumi.service.MemberService;
 
 @RestController
@@ -28,4 +29,13 @@ public class MemberAdminController {
 
         return ResponseDto.of("Accessed SchoolAuth");
     }
+
+    @PatchMapping("/schoolAuth/reject")
+    public ResponseDto<Object> schoolAuthReject(@Valid @RequestBody SchoolAuthRejectRequest schoolAuthRejectRequest) {
+        Long id = memberService.rejectSchoolAuth(schoolAuthRejectRequest);
+        log.info("Reject SchoolAuth id = " + id);
+
+        return ResponseDto.of("Rejected SchoolAuth");
+    }
+
 }
