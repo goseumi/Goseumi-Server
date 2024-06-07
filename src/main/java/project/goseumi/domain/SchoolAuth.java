@@ -42,4 +42,14 @@ public class SchoolAuth extends BaseEntity {
                 .url(url)
                 .build();
     }
+
+    public void authAccess() {
+        this.accept = BooleanState.YES;
+        this.rejectReason = "access";
+    }
+
+    public void authReject(String message) {
+        this.accept = BooleanState.NO;
+        this.rejectReason = message;
+    }
 }

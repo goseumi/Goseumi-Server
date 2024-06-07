@@ -72,6 +72,11 @@ public class Member extends BaseEntity implements UserDetails {
                 .build();
     }
 
+    public void updateSchoolInfo(School school) {
+        this.school = school;
+        this.schoolAuth = BooleanState.YES;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //Role값 반환

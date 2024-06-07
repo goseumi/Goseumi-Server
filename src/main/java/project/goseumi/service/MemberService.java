@@ -6,6 +6,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.goseumi.controller.dto.request.LoginRequest;
+import project.goseumi.controller.dto.request.SchoolAuthAccessRequest;
 import project.goseumi.controller.dto.request.SchoolAuthRequest;
 import project.goseumi.controller.dto.request.SignUpRequest;
 import project.goseumi.controller.dto.response.LoginResponse;
@@ -14,6 +15,7 @@ import project.goseumi.domain.School;
 import project.goseumi.domain.SchoolAuth;
 import project.goseumi.exception.BusinessException;
 import project.goseumi.exception.error.MemberError;
+import project.goseumi.exception.error.SchoolAuthError;
 import project.goseumi.exception.error.SchoolError;
 import project.goseumi.repository.MemberRepository;
 import project.goseumi.repository.SchoolAuthRepository;
@@ -93,6 +95,9 @@ public class MemberService {
         }
     }
 
+    /**
+     * 학교 인증 생성 로직
+     */
     @Transactional
     public Long newSchoolAuth(HttpServletRequest request, SchoolAuthRequest schoolAuthRequest) {
         String userEmail = getUserEmailFromToken(request);
@@ -131,5 +136,24 @@ public class MemberService {
         }
 
         return authorization.split(" ")[1];
+    }
+
+    /**
+     * 학교 인증 승인
+     */
+    @Transactional
+    public Long accessSchoolAuth(
+            HttpServletRequest request,
+            SchoolAuthAccessRequest schoolAuthAccessRequest
+    ) {
+        SchoolAuth schoolAuth = schoolAuthRepository.findById(schoolAuthAccessRequest.getId())
+                .orElseThrow(() -> new BusinessException(SchoolAuthError.SCHOOL_AUTH_FIND_BY_ID_FAIL));
+
+        schoolAuth.authAccess();
+        Member member = schoolAuth.getMember();
+
+        member.updateSchoolInfo(schoolAuth.getSchool());
+
+        return schoolAuth.getId();
     }
 }

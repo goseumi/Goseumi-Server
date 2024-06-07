@@ -12,7 +12,7 @@ public enum SchoolError implements GoseumiError {
     private final HttpStatus httpStatus = HttpStatus.BAD_REQUEST;
 
     SchoolError(String errorCode, String message) {
-        this.errorCode = "E01" + errorCode; //계정 관련 오류코드 = E01~~
+        this.errorCode = "E01" + errorCode; //학교 관련 오류코드 = E01~~
         this.message = message;
     }
 }
