@@ -11,10 +11,14 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
 import project.goseumi.repository.MemberRepository;
 import project.goseumi.security.jwt.JwtFilter;
 import project.goseumi.security.jwt.JwtUtil;
 import project.goseumi.security.jwt.LoginFilter;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Configuration
 @EnableWebSecurity
@@ -40,6 +44,14 @@ public class WebSecurityConfig {
         //csrf, cors disable
         http
                 .csrf((csrf) -> csrf.disable())
+//                .cors((cors) -> cors.configurationSource(request -> {
+//                    CorsConfiguration config = new CorsConfiguration();
+//                    config.setAllowedOriginPatterns(List.of("*"));
+//                    config.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS")); // OPTIONS 포함
+//                    config.setAllowedHeaders(Arrays.asList("Authorization", "Content-Type")); // 허용할 헤더 추가
+//                    config.setAllowCredentials(true); // 인증 정보 허용 (쿠키 등)
+//                    return config;
+//                }))
                 .cors((cors) -> cors.disable())
 
                 //formLogin, httpBasic disable
