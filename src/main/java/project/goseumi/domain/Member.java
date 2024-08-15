@@ -6,12 +6,11 @@ import lombok.Getter;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
-import project.goseumi.controller.dto.request.SignUpRequest;
+import project.goseumi.controller.dto.member.SignUpRequest;
 import project.goseumi.domain.value.BooleanState;
 import project.goseumi.domain.value.Role;
 import project.goseumi.domain.value.UserStatus;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
@@ -70,6 +69,11 @@ public class Member extends BaseEntity implements UserDetails {
                 .phone(signUpRequest.getPhone())
                 .nickname(signUpRequest.getNickname())
                 .build();
+    }
+
+    public void updateSchoolInfo(School school) {
+        this.school = school;
+        this.schoolAuth = BooleanState.YES;
     }
 
     @Override
