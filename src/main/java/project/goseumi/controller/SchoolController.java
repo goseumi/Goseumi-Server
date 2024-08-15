@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import project.goseumi.controller.dto.base.PageDto;
 import project.goseumi.controller.dto.base.PageResponseDto;
-import project.goseumi.controller.dto.response.SchoolResponse;
+import project.goseumi.controller.dto.school.SchoolResponse;
 import project.goseumi.service.SchoolService;
 
 import java.util.List;

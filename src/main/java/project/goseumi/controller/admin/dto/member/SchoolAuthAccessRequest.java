@@ -1,4 +1,4 @@
-package project.goseumi.controller.dto.request;
+package project.goseumi.controller.admin.dto.member;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

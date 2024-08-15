@@ -1,4 +1,4 @@
-package project.goseumi.controller.dto.request;
+package project.goseumi.controller.dto.member;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

@@ -1,4 +1,4 @@
-package project.goseumi.controller.dto.request;
+package project.goseumi.controller.admin.dto.category;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Getter;

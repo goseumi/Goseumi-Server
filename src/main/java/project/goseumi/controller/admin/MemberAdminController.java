@@ -1,6 +1,5 @@
 package project.goseumi.controller.admin;
 
-import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.goseumi.controller.dto.base.ResponseDto;
-import project.goseumi.controller.dto.request.SchoolAuthAccessRequest;
-import project.goseumi.controller.dto.request.SchoolAuthRejectRequest;
+import project.goseumi.controller.admin.dto.member.SchoolAuthAccessRequest;
+import project.goseumi.controller.admin.dto.member.SchoolAuthRejectRequest;
 import project.goseumi.service.MemberService;
 
 @RestController

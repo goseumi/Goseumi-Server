@@ -1,4 +1,4 @@
-package project.goseumi.controller.dto.response;
+package project.goseumi.controller.dto.school;
 
 import lombok.Builder;
 import lombok.Getter;

@@ -5,8 +5,8 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
 import project.goseumi.controller.dto.base.ResponseDto;
-import project.goseumi.controller.dto.request.SchoolModifiedRequest;
-import project.goseumi.controller.dto.request.SchoolRegisterRequest;
+import project.goseumi.controller.admin.dto.school.SchoolModifiedRequest;
+import project.goseumi.controller.admin.dto.school.SchoolRegisterRequest;
 import project.goseumi.service.SchoolService;
 
 @RestController

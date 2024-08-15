@@ -4,8 +4,8 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import lombok.Builder;
 import lombok.Getter;
-import project.goseumi.controller.dto.request.SchoolModifiedRequest;
-import project.goseumi.controller.dto.request.SchoolRegisterRequest;
+import project.goseumi.controller.admin.dto.school.SchoolModifiedRequest;
+import project.goseumi.controller.admin.dto.school.SchoolRegisterRequest;
 
 @Getter
 @Entity

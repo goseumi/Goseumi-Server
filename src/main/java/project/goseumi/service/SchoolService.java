@@ -1,7 +1,6 @@
 package project.goseumi.service;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
-import com.querydsl.jpa.impl.JPAQuery;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 import lombok.RequiredArgsConstructor;
@@ -12,9 +11,9 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.goseumi.controller.dto.base.PageDto;
-import project.goseumi.controller.dto.request.SchoolModifiedRequest;
-import project.goseumi.controller.dto.request.SchoolRegisterRequest;
-import project.goseumi.controller.dto.response.SchoolResponse;
+import project.goseumi.controller.admin.dto.school.SchoolModifiedRequest;
+import project.goseumi.controller.admin.dto.school.SchoolRegisterRequest;
+import project.goseumi.controller.dto.school.SchoolResponse;
 import project.goseumi.domain.School;
 import project.goseumi.exception.BusinessException;
 import project.goseumi.exception.error.SchoolError;

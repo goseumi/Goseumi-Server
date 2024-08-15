@@ -4,22 +4,18 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.goseumi.controller.dto.base.PageDto;
-import project.goseumi.controller.dto.base.PageResponseDto;
-import project.goseumi.controller.dto.request.CreateCategoryRequestDto;
-import project.goseumi.controller.dto.response.CategoryResponse;
-import project.goseumi.controller.dto.response.RenameCategoryResponseDto;
+import project.goseumi.controller.admin.dto.category.CreateCategoryRequestDto;
+import project.goseumi.controller.admin.dto.category.CategoryResponse;
+import project.goseumi.controller.admin.dto.category.RenameCategoryResponseDto;
 import project.goseumi.domain.BoardCategory;
 import project.goseumi.exception.BusinessException;
 import project.goseumi.exception.error.BoardCategoryError;
 import project.goseumi.repository.BoardCategoryRepository;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 @Service
 @Slf4j

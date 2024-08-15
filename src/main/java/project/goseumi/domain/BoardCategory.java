@@ -5,7 +5,7 @@ import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import lombok.Builder;
 import lombok.Getter;
-import project.goseumi.controller.dto.request.CreateCategoryRequestDto;
+import project.goseumi.controller.admin.dto.category.CreateCategoryRequestDto;
 import project.goseumi.domain.value.VisibleState;
 
 @Entity

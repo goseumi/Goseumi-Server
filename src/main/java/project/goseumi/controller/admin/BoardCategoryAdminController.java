@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.*;
 import project.goseumi.controller.dto.base.PageDto;
 import project.goseumi.controller.dto.base.PageResponseDto;
 import project.goseumi.controller.dto.base.ResponseDto;
-import project.goseumi.controller.dto.request.CreateCategoryRequestDto;
-import project.goseumi.controller.dto.response.CategoryResponse;
-import project.goseumi.controller.dto.response.CreateCategoryResponseDto;
-import project.goseumi.controller.dto.response.RenameCategoryResponseDto;
+import project.goseumi.controller.admin.dto.category.CreateCategoryRequestDto;
+import project.goseumi.controller.admin.dto.category.CategoryResponse;
+import project.goseumi.controller.admin.dto.category.CreateCategoryResponseDto;
+import project.goseumi.controller.admin.dto.category.RenameCategoryResponseDto;
 import project.goseumi.service.BoardCategoryService;
 
 import java.util.List;

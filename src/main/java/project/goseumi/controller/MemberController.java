@@ -9,9 +9,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import project.goseumi.controller.dto.base.ResponseDto;
-import project.goseumi.controller.dto.request.SchoolAuthRequest;
-import project.goseumi.controller.dto.request.SignUpRequest;
-import project.goseumi.controller.dto.response.SignUpResponse;
+import project.goseumi.controller.dto.member.SchoolAuthRequest;
+import project.goseumi.controller.dto.member.SignUpRequest;
+import project.goseumi.controller.dto.member.SignUpResponse;
 import project.goseumi.service.MemberService;
 
 @Slf4j
