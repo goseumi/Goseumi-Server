@@ -15,9 +15,6 @@ import project.goseumi.domain.Member;
 import project.goseumi.domain.School;
 import project.goseumi.domain.SchoolAuth;
 import project.goseumi.exception.BusinessException;
-import project.goseumi.exception.error.MemberError;
-import project.goseumi.exception.error.SchoolAuthError;
-import project.goseumi.exception.error.SchoolError;
 import project.goseumi.repository.MemberRepository;
 import project.goseumi.repository.SchoolAuthRepository;
 import project.goseumi.repository.SchoolRepository;
@@ -55,7 +52,7 @@ public class MemberService {
     private void chkEmailDuplicate(final String email) {
         Optional<Member> optionalMember = memberRepository.findByEmail(email);
         if (optionalMember.isPresent()) {
-            throw new BusinessException(MemberError.EMAIL_DUPLICATE);
+            throw new BusinessException("Member already exists");
         }
     }
 
@@ -65,7 +62,7 @@ public class MemberService {
     private void chkNicknameDuplicate(final String nickname) {
         Optional<Member> optionalMember = memberRepository.findByNickname(nickname);
         if (optionalMember.isPresent()) {
-            throw new BusinessException(MemberError.NICKNAME_DUPLICATE);
+            throw new BusinessException("Member already exists");
         }
     }
 
@@ -74,7 +71,7 @@ public class MemberService {
      */
     private String chkPasswordAndEncode(final String password, final String passwordCheck) {
         if (!password.equals(passwordCheck)) {
-            throw new BusinessException(MemberError.PASSWORD_MISMATCH);
+            throw new BusinessException("Password does not match");
         }
         return passwordEncoder.encode(password);
     }
@@ -84,7 +81,7 @@ public class MemberService {
         String password = loginRequest.getPassword();
 
         Member member = memberRepository.findByEmail(email)
-                .orElseThrow(() -> new BusinessException(MemberError.USER_LOGIN_FAIL));
+                .orElseThrow(() -> new BusinessException("Not Found Member By Email"));
         validatePassword(password, member.getPassword());
         return null;
 
@@ -92,7 +89,7 @@ public class MemberService {
 
     private void validatePassword(final String inputPassword, final String expectedPassword) {
         if (!passwordEncoder.matches(inputPassword, expectedPassword)) {
-            throw new BusinessException(MemberError.USER_LOGIN_FAIL);
+            throw new BusinessException("Password does not match");
         }
     }
 
@@ -104,10 +101,10 @@ public class MemberService {
         String userEmail = getUserEmailFromToken(request);
 
         Member member = memberRepository.findByEmail(userEmail)
-                .orElseThrow(() -> new BusinessException(MemberError.USER_LOGIN_FAIL));
+                .orElseThrow(() -> new BusinessException("Not Found Member By Email"));
 
         School school = schoolRepository.findById(schoolAuthRequest.getSchoolId())
-                .orElseThrow(() -> new BusinessException(SchoolError.SCHOOL_FIND_BY_ID_FAIL));
+                .orElseThrow(() -> new BusinessException("Not Found School By Id"));
 
         SchoolAuth schoolAuth = SchoolAuth.of(member, school, schoolAuthRequest.getImgUrl());
 
@@ -133,7 +130,7 @@ public class MemberService {
         String authorization = request.getHeader("Authorization");
 
         if (authorization == null || !authorization.startsWith("Bearer ")) {
-            throw new BusinessException(MemberError.NOT_EXIST_TOKEN);
+            throw new BusinessException("Not Found Authorization Header Token");
         }
 
         return authorization.split(" ")[1];
@@ -146,7 +143,7 @@ public class MemberService {
     public Long accessSchoolAuth(SchoolAuthAccessRequest schoolAuthAccessRequest) {
 
         SchoolAuth schoolAuth = schoolAuthRepository.findById(schoolAuthAccessRequest.getId())
-                .orElseThrow(() -> new BusinessException(SchoolAuthError.SCHOOL_AUTH_FIND_BY_ID_FAIL));
+                .orElseThrow(() -> new BusinessException("Not Found SchoolAuth By Id"));
 
         schoolAuth.authAccess();
         Member member = schoolAuth.getMember();
@@ -162,7 +159,7 @@ public class MemberService {
     @Transactional
     public Long rejectSchoolAuth(SchoolAuthRejectRequest schoolAuthRejectRequest) {
         SchoolAuth schoolAuth = schoolAuthRepository.findById(schoolAuthRejectRequest.getId())
-                .orElseThrow(() -> new BusinessException(SchoolAuthError.SCHOOL_AUTH_FIND_BY_ID_FAIL));
+                .orElseThrow(() -> new BusinessException("Not Found SchoolAuth By Id"));
 
         schoolAuth.authReject(schoolAuthRejectRequest.getRejectReason());
 

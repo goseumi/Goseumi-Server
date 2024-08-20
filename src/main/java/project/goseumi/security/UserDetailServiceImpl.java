@@ -5,7 +5,6 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import project.goseumi.exception.BusinessException;
-import project.goseumi.exception.error.MemberError;
 import project.goseumi.repository.MemberRepository;
 
 @Service
@@ -20,6 +19,6 @@ public class UserDetailServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return memberRepository.findByEmail(username)
-                .orElseThrow(() -> new BusinessException(MemberError.USER_LOGIN_FAIL));
+                .orElseThrow(() -> new BusinessException("Not Found Member by Email"));
     }
 }
