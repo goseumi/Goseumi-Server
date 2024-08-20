@@ -14,7 +14,7 @@ public class Banned extends BaseEntity {
     @JoinColumn(name = "member_id")
     private Member member;
 
-    private Long period;
+    private Long periodDate;
 
     private String reason;
 }
