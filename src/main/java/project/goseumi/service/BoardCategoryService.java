@@ -12,7 +12,6 @@ import project.goseumi.controller.admin.dto.category.CategoryResponse;
 import project.goseumi.controller.admin.dto.category.RenameCategoryResponseDto;
 import project.goseumi.domain.BoardCategory;
 import project.goseumi.exception.BusinessException;
-import project.goseumi.exception.error.BoardCategoryError;
 import project.goseumi.repository.BoardCategoryRepository;
 
 import java.util.List;
@@ -44,7 +43,7 @@ public class BoardCategoryService {
     @Transactional
     public RenameCategoryResponseDto renameCategory(Long id, CreateCategoryRequestDto createCategoryRequestDto) {
         BoardCategory findBoardCategory = boardCategoryRepository.findById(id).orElseThrow(
-                () -> new BusinessException(BoardCategoryError.NOT_FOUND_CATEGORY_BY_ID));
+                () -> new BusinessException("Not Found Category By Id"));
         String before = findBoardCategory.getName();
 
         findBoardCategory.rename(createCategoryRequestDto.getName());
@@ -62,7 +61,7 @@ public class BoardCategoryService {
     @Transactional
     public void deleteCategory(Long id) {
         BoardCategory findBoardCategory = boardCategoryRepository.findById(id).orElseThrow(
-                () -> new BusinessException(BoardCategoryError.NOT_FOUND_CATEGORY_BY_ID));
+                () -> new BusinessException("Not Found Category By Id"));
 
         findBoardCategory.visibleDeleted();
     }
@@ -74,7 +73,7 @@ public class BoardCategoryService {
     @Transactional
     public void activeCategory(Long id) {
         BoardCategory findBoardCategory = boardCategoryRepository.findById(id).orElseThrow(
-                () -> new BusinessException(BoardCategoryError.NOT_FOUND_CATEGORY_BY_ID));
+                () -> new BusinessException("Not Found Category By Id"));
 
         findBoardCategory.visibleActive();
     }

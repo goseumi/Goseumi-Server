@@ -16,7 +16,6 @@ import project.goseumi.controller.admin.dto.school.SchoolRegisterRequest;
 import project.goseumi.controller.dto.school.SchoolResponse;
 import project.goseumi.domain.School;
 import project.goseumi.exception.BusinessException;
-import project.goseumi.exception.error.SchoolError;
 import project.goseumi.repository.SchoolRepository;
 
 import java.util.List;
@@ -99,7 +98,7 @@ public class SchoolService {
     @Transactional
     public void modified(SchoolModifiedRequest schoolModifiedRequest) {
         School school = schoolRepository.findById(schoolModifiedRequest.getId())
-                .orElseThrow(() -> new BusinessException(SchoolError.SCHOOL_FIND_BY_ID_FAIL));
+                .orElseThrow(() -> new BusinessException("Not Found School By Id"));
 
         school.modified(schoolModifiedRequest);
     }

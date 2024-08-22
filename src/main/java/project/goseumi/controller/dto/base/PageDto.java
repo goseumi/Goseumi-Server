@@ -2,7 +2,6 @@ package project.goseumi.controller.dto.base;
 
 import lombok.Getter;
 import project.goseumi.exception.BusinessException;
-import project.goseumi.exception.error.FieldError;
 
 @Getter
 public class PageDto {
@@ -16,7 +15,7 @@ public class PageDto {
 
     public static PageDto of(int currentPage) {
         if (currentPage < 0) {
-            throw new BusinessException(FieldError.INVALID_PAGE);
+            throw new BusinessException("Invalid Page");
         }
         return new PageDto(currentPage);
     }

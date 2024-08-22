@@ -9,7 +9,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.filter.OncePerRequestFilter;
 import project.goseumi.domain.Member;
 import project.goseumi.exception.BusinessException;
-import project.goseumi.exception.error.MemberError;
 import project.goseumi.repository.MemberRepository;
 
 import java.io.IOException;
@@ -53,7 +52,8 @@ public class JwtFilter extends OncePerRequestFilter {
         String username = jwtUtil.getUsername(token);
 //        String role = jwtUtil.getRole(token);
 
-        Member member = memberRepository.findByEmail(username).orElseThrow(() -> new BusinessException(MemberError.USER_LOGIN_FAIL));
+        Member member = memberRepository.findByEmail(username)
+                .orElseThrow(() -> new BusinessException("Not Found Member By Email"));
 
         //스프링 시큐리티 인증 토큰 생성
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(member, null, member.getAuthorities());
