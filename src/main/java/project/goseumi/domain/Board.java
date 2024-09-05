@@ -1,12 +1,12 @@
 package project.goseumi.domain;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Getter;
-import project.goseumi.controller.dto.request.BoardRequestsDto;
 import project.goseumi.domain.value.VisibleState;
 
-@Entity // DB에 저장할 엔티티이므로 붙여줌
 @Getter
+@Entity // DB에 저장할 엔티티이므로 붙여줌
 public class Board extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -34,21 +34,29 @@ public class Board extends BaseEntity {
 
     }
 
-    public Board(BoardRequestsDto boardRequestDto, Member member, BoardCategory boardCategory, School school) {
-        this.title = boardRequestDto.getTitle();
-        this.content = boardRequestDto.getContent();
+    @Builder
+    protected Board(Member member, BoardCategory boardCategory, School school, String title, String content, VisibleState state) {
+        this();
         this.member = member;
         this.boardCategory = boardCategory;
         this.school = school;
+        this.title = title;
+        this.content = content;
+        this.state = state;
     }
 
-
-    public void update(BoardRequestsDto boardRequestDto, Member member, BoardCategory boardCategory, School school) {
-        this.title = boardRequestDto.getTitle();
-        this.content = boardRequestDto.getContent();
-        this.member = member;
-        this.boardCategory = boardCategory;
-        this.school = school;
+    public static Board createBoard(BoardCategory boardCategory, School school, String title, String content, VisibleState state) {
+        return Board.builder()
+                .boardCategory(boardCategory)
+                .school(school)
+                .title(title)
+                .content(content)
+                .state(state)
+                .build();
     }
 
+    public static Board deleteBoard() {
+        return Board.builder()
+                .
+    }
 }
