@@ -30,33 +30,32 @@ public class Board extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private VisibleState state;
 
-    public Board() {
-
+    protected Board() {
+        this.state = VisibleState.VISIBLE;
     }
 
     @Builder
-    protected Board(Member member, BoardCategory boardCategory, School school, String title, String content, VisibleState state) {
+    protected Board(Member member, BoardCategory boardCategory, School school, String title, String content) {
         this();
         this.member = member;
         this.boardCategory = boardCategory;
         this.school = school;
         this.title = title;
         this.content = content;
-        this.state = state;
     }
 
-    public static Board createBoard(BoardCategory boardCategory, School school, String title, String content, VisibleState state) {
+    public static Board createBoard(Member member, BoardCategory boardCategory, School school, String title, String content) {
         return Board.builder()
+                .member(member)
                 .boardCategory(boardCategory)
                 .school(school)
                 .title(title)
                 .content(content)
-                .state(state)
                 .build();
     }
 
-    public static Board deleteBoard() {
+    /*public static Board deleteBoard() {
         return Board.builder()
                 .
-    }
+    }*/
 }
