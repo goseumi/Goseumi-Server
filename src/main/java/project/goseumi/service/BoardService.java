@@ -42,13 +42,14 @@ public class BoardService {
         boardRepository.save(createBoard);
     }
 
-    /*// 게시글 삭제 (Visible -> Blind)
+    // 게시글 삭제 (Visible -> Blind)
     @Transactional
     public void deleteBoard(DeleteBoardRequest deleteBoardRequest) {
         Board board = boardRepository.findById(deleteBoardRequest.getBoardId())
                 .orElseThrow();
-        VisibleState visibleState = VisibleState.valueOf("Blind");
+        VisibleState updateState = VisibleState.BLIND;
 
-        Board deleteBoard = Board.
-    }*/
+        Board deleteBoard = Board.deleteBoard(board, updateState);
+        boardRepository.save(deleteBoard);
+    }
 }

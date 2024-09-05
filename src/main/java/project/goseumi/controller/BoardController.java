@@ -10,8 +10,6 @@ import project.goseumi.controller.dto.board.DeleteBoardRequest;
 import project.goseumi.service.BoardService;
 import project.goseumi.service.MemberService;
 
-import java.net.http.HttpRequest;
-
 @Slf4j
 @RestController
 @RequiredArgsConstructor
@@ -29,6 +27,6 @@ public class BoardController {
 
     @DeleteMapping("/delete")
     public void deleteBoard(@Valid @RequestBody DeleteBoardRequest deleteBoardRequest) {
-
+        boardService.deleteBoard(deleteBoardRequest);
     }
 }

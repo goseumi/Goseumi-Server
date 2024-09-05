@@ -54,8 +54,8 @@ public class Board extends BaseEntity {
                 .build();
     }
 
-    /*public static Board deleteBoard() {
-        return Board.builder()
-                .
-    }*/
+    public static Board deleteBoard(Board board, VisibleState visibleState) {
+        board.state = visibleState;
+        return board;
+    }
 }
