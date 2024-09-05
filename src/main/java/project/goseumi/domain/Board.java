@@ -25,5 +25,5 @@ public class Board extends BaseEntity {
     private String content;
 
     @Enumerated(EnumType.STRING)
-    private VisibleState state;
+    private VisibleState state; //test
 }
