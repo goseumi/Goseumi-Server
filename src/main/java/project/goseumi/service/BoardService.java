@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.goseumi.controller.dto.board.CreateBoardRequest;
 import project.goseumi.controller.dto.board.DeleteBoardRequest;
+import project.goseumi.controller.dto.board.UpdateBoardRequest;
 import project.goseumi.domain.Board;
 import project.goseumi.domain.BoardCategory;
 import project.goseumi.domain.Member;
@@ -40,6 +41,18 @@ public class BoardService {
 
         Board createBoard = Board.createBoard(member, boardCategory, school, title, content);
         boardRepository.save(createBoard);
+    }
+
+    // 게시글 수정
+    @Transactional
+    public void updateBoard(UpdateBoardRequest updateBoardRequest) {
+        Board board = boardRepository.findById(updateBoardRequest.getBoardId())
+                .orElseThrow();
+        String title = updateBoardRequest.getTitle();
+        String content = updateBoardRequest.getContent();
+
+        Board updateBoard = Board.updateBoard(board, title, content);
+        boardRepository.save(updateBoard);
     }
 
     // 게시글 삭제 (Visible -> Blind)

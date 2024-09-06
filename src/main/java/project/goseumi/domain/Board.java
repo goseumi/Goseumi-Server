@@ -54,6 +54,12 @@ public class Board extends BaseEntity {
                 .build();
     }
 
+    public static Board updateBoard(Board board, String title, String content) {
+        board.title = title;
+        board.content = content;
+        return board;
+    }
+
     public static Board deleteBoard(Board board, VisibleState visibleState) {
         board.state = visibleState;
         return board;
