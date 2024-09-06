@@ -1,11 +1,11 @@
 package project.goseumi.service;
 
-import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.goseumi.controller.dto.board.CreateBoardRequest;
 import project.goseumi.controller.dto.board.DeleteBoardRequest;
+import project.goseumi.controller.dto.board.GetBoardResponse;
 import project.goseumi.controller.dto.board.UpdateBoardRequest;
 import project.goseumi.domain.Board;
 import project.goseumi.domain.BoardCategory;
@@ -17,7 +17,7 @@ import project.goseumi.repository.BoardRepository;
 import project.goseumi.repository.MemberRepository;
 import project.goseumi.repository.SchoolRepository;
 
-import java.net.http.HttpRequest;
+import java.time.LocalDateTime;
 
 @Service
 @RequiredArgsConstructor
@@ -53,6 +53,18 @@ public class BoardService {
 
         Board updateBoard = Board.updateBoard(board, title, content);
         boardRepository.save(updateBoard);
+    }
+
+    // 게시글 상세 보기 (작성일, 제목, 내용)
+    @Transactional
+    public GetBoardResponse detailBoard(Long boardId) {
+        Board board = boardRepository.findById(boardId)
+                .orElseThrow();
+        LocalDateTime createdAt = board.getCreatedAt();
+        String title = board.getTitle();
+        String content = board.getContent();
+        GetBoardResponse getBoardResponse = new GetBoardResponse(createdAt, title, content);
+        return getBoardResponse;
     }
 
     // 게시글 삭제 (Visible -> Blind)

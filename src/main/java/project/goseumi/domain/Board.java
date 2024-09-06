@@ -6,7 +6,7 @@ import lombok.Getter;
 import project.goseumi.domain.value.VisibleState;
 
 @Getter
-@Entity // DB에 저장할 엔티티이므로 붙여줌
+@Entity
 public class Board extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
