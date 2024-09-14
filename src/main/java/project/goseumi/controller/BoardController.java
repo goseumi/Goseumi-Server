@@ -5,6 +5,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.*;
+import project.goseumi.controller.dto.base.ResponseDto;
 import project.goseumi.controller.dto.board.CreateBoardRequest;
 import project.goseumi.controller.dto.board.DeleteBoardRequest;
 import project.goseumi.controller.dto.board.GetBoardResponse;
@@ -34,9 +35,9 @@ public class BoardController {
     }
 
     @GetMapping("/detail")
-    public GetBoardResponse getBoard(@RequestParam("boardId") Long boardId) {
+    public ResponseDto<GetBoardResponse> getBoard(@RequestParam("boardId") Long boardId) {
         GetBoardResponse getBoardResponse = boardService.detailBoard(boardId);
-        return getBoardResponse;
+        return ResponseDto.of(getBoardResponse);
     }
 
     @DeleteMapping("/delete")
