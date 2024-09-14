@@ -58,7 +58,7 @@ public class BoardService {
         if (member.equals(dbMember)) {
             Board.updateBoard(board, title, content);
         } else {
-            throw new BusinessException("Board not found by boardId: " + updateBoardRequest.getBoardId());
+            throw new BusinessException("자신이 작성한 게시글만 수정할 수 있습니다.");
         }
     }
 
@@ -87,7 +87,7 @@ public class BoardService {
         if (member.equals(dbMember)) {
             Board.deleteBoard(board, updateState);
         } else {
-            throw new BusinessException("Board not found by boardId: " + deleteBoardRequest.getBoardId());
+            throw new BusinessException("자신이 작성한 게시글만 삭제할 수 있습니다.");
         }
     }
 }
