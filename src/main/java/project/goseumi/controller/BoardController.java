@@ -40,7 +40,8 @@ public class BoardController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteBoard(@Valid @RequestBody DeleteBoardRequest deleteBoardRequest) {
-        boardService.deleteBoard(deleteBoardRequest);
+    public void deleteBoard(@RequestBody DeleteBoardRequest deleteBoardRequest, HttpServletRequest request) {
+        String username = memberService.getUserEmailFromToken(request);
+        boardService.deleteBoard(deleteBoardRequest, username);
     }
 }

@@ -76,12 +76,18 @@ public class BoardService {
 
     // 게시글 삭제 (Visible -> Blind)
     @Transactional
-    public void deleteBoard(DeleteBoardRequest deleteBoardRequest) {
+    public void deleteBoard(DeleteBoardRequest deleteBoardRequest, String username) {
         Board board = boardRepository.findById(deleteBoardRequest.getBoardId())
                 .orElseThrow(() -> new BusinessException("Board not found by boardId: " + deleteBoardRequest.getBoardId()));
         VisibleState updateState = VisibleState.BLIND;
 
-        Board deleteBoard = Board.deleteBoard(board, updateState);
-        boardRepository.save(deleteBoard);
+        Member member = board.getMember();
+        Member dbMember = memberRepository.findByEmail(username)
+                .orElseThrow(() -> new BusinessException("Member not found by email: " + username));
+        if (member.equals(dbMember)) {
+            Board.deleteBoard(board, updateState);
+        } else {
+            throw new BusinessException("Board not found by boardId: " + deleteBoardRequest.getBoardId());
+        }
     }
 }
