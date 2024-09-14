@@ -22,13 +22,13 @@ public class BoardController {
     private final MemberService memberService;
 
     @PostMapping("/create")
-    public void createBoard(@Valid @RequestBody CreateBoardRequest createBoardRequest, HttpServletRequest request) {
+    public void createBoard(@RequestBody CreateBoardRequest createBoardRequest, HttpServletRequest request) {
         String username = memberService.getUserEmailFromToken(request);
         boardService.createBoard(createBoardRequest, username);
     }
 
     @PatchMapping("/update")
-    public void updateBoard(@Valid @RequestBody UpdateBoardRequest updateBoardRequest) {
+    public void updateBoard(@RequestBody UpdateBoardRequest updateBoardRequest) {
         boardService.updateBoard(updateBoardRequest);
     }
 

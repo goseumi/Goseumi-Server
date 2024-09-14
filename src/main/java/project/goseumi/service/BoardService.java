@@ -12,11 +12,11 @@ import project.goseumi.domain.BoardCategory;
 import project.goseumi.domain.Member;
 import project.goseumi.domain.School;
 import project.goseumi.domain.value.VisibleState;
+import project.goseumi.exception.BusinessException;
 import project.goseumi.repository.BoardCategoryRepository;
 import project.goseumi.repository.BoardRepository;
 import project.goseumi.repository.MemberRepository;
 import project.goseumi.repository.SchoolRepository;
-
 import java.time.LocalDateTime;
 
 @Service
@@ -31,11 +31,12 @@ public class BoardService {
     // 게시글 작성
     @Transactional
     public void createBoard(CreateBoardRequest createBoardRequest, String username) {
-        Member member = memberRepository.findByEmail(username).get();
+        Member member = memberRepository.findByEmail(username)
+                .orElseThrow(() -> new BusinessException("Member not found by email: " + username));
         BoardCategory boardCategory = boardCategoryRepository.findById(createBoardRequest.getBoardCategoryId())
-                .orElseThrow();
+                .orElseThrow(() -> new BusinessException("BoardCategory not found by boardCategoryId: " + createBoardRequest.getBoardCategoryId()));
         School school = schoolRepository.findById(createBoardRequest.getSchoolId())
-                .orElseThrow();
+                .orElseThrow(() -> new BusinessException("School not found by SchoolId: " + createBoardRequest.getSchoolId()));
         String title = createBoardRequest.getTitle();
         String content = createBoardRequest.getContent();
 
@@ -47,10 +48,9 @@ public class BoardService {
     @Transactional
     public void updateBoard(UpdateBoardRequest updateBoardRequest) {
         Board board = boardRepository.findById(updateBoardRequest.getBoardId())
-                .orElseThrow();
+                .orElseThrow(() -> new BusinessException("Board not found by boardId: " + updateBoardRequest.getBoardId()));
         String title = updateBoardRequest.getTitle();
         String content = updateBoardRequest.getContent();
-
         Board updateBoard = Board.updateBoard(board, title, content);
         boardRepository.save(updateBoard);
     }
@@ -59,7 +59,7 @@ public class BoardService {
     @Transactional
     public GetBoardResponse detailBoard(Long boardId) {
         Board board = boardRepository.findById(boardId)
-                .orElseThrow();
+                .orElseThrow(() -> new BusinessException("Board not found by boardId: " + boardId));
         LocalDateTime createdAt = board.getCreatedAt();
         String title = board.getTitle();
         String content = board.getContent();
@@ -71,7 +71,7 @@ public class BoardService {
     @Transactional
     public void deleteBoard(DeleteBoardRequest deleteBoardRequest) {
         Board board = boardRepository.findById(deleteBoardRequest.getBoardId())
-                .orElseThrow();
+                .orElseThrow(() -> new BusinessException("Board not found by boardId: " + deleteBoardRequest.getBoardId()));
         VisibleState updateState = VisibleState.BLIND;
 
         Board deleteBoard = Board.deleteBoard(board, updateState);
