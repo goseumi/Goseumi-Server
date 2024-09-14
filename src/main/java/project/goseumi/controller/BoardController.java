@@ -28,8 +28,9 @@ public class BoardController {
     }
 
     @PatchMapping("/update")
-    public void updateBoard(@RequestBody UpdateBoardRequest updateBoardRequest) {
-        boardService.updateBoard(updateBoardRequest);
+    public void updateBoard(@RequestBody UpdateBoardRequest updateBoardRequest, HttpServletRequest request) {
+        String username = memberService.getUserEmailFromToken(request);
+        boardService.updateBoard(updateBoardRequest, username);
     }
 
     @GetMapping("/detail")

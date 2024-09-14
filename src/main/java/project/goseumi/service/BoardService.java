@@ -46,13 +46,20 @@ public class BoardService {
 
     // 게시글 수정
     @Transactional
-    public void updateBoard(UpdateBoardRequest updateBoardRequest) {
+    public void updateBoard(UpdateBoardRequest updateBoardRequest, String username) {
         Board board = boardRepository.findById(updateBoardRequest.getBoardId())
                 .orElseThrow(() -> new BusinessException("Board not found by boardId: " + updateBoardRequest.getBoardId()));
         String title = updateBoardRequest.getTitle();
         String content = updateBoardRequest.getContent();
-        Board updateBoard = Board.updateBoard(board, title, content);
-        boardRepository.save(updateBoard);
+
+        Member member = board.getMember();
+        Member dbMember = memberRepository.findByEmail(username)
+                .orElseThrow(() -> new BusinessException("Member not found by email: " + username));
+        if (member.equals(dbMember)) {
+            Board.updateBoard(board, title, content);
+        } else {
+            throw new BusinessException("Board not found by boardId: " + updateBoardRequest.getBoardId());
+        }
     }
 
     // 게시글 상세 보기 (작성일, 제목, 내용)
