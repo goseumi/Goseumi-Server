@@ -116,7 +116,7 @@ public class MemberService {
     /**
      * 토큰에서 username(email) 뽑아오기
      */
-    private String getUserEmailFromToken(HttpServletRequest request) {
+    public String getUserEmailFromToken(HttpServletRequest request) {
         String pureToken = getPureToken(request);
 
         return jwtUtil.getUsername(pureToken);

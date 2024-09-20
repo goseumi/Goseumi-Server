@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 
 @MappedSuperclass
 @Getter
-@EntityListeners(AuditingEntityListener.class)
+@EntityListeners(AuditingEntityListener.class) // 새로운 post 데이터가 날라와서 DB에 써지면 DB에 데이터가 커밋될 때 생성 시간, 수정 시간이 자동으로 들어감
 public class BaseEntity {
 
     @Id
