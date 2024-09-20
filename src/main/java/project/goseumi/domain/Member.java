@@ -13,6 +13,7 @@ import project.goseumi.domain.value.UserStatus;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
 
 @Getter
 @Entity
@@ -80,6 +81,19 @@ public class Member extends BaseEntity implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         //Role값 반환
         return List.of(new SimpleGrantedAuthority("ROLE_" + role.name()));
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Member member = (Member) o;
+        return role == member.role && Objects.equals(phone, member.phone) && Objects.equals(nickname, member.nickname) && Objects.equals(email, member.email) && Objects.equals(password, member.password) && status == member.status && Objects.equals(school, member.school) && withdraw == member.withdraw && mailAuth == member.mailAuth && schoolAuth == member.schoolAuth;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(role, phone, nickname, email, password, status, school, withdraw, mailAuth, schoolAuth);
     }
 
     @Override
