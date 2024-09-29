@@ -18,7 +18,7 @@ public class Board extends BaseEntity {
     private BoardCategory boardCategory;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "school_id")
+    @JoinColumn(name = "SD_SCHUL_CODE")
     private School school;
 
     @Column(nullable = false) // 객체 필드를 테이블의 컬럼으로 맵핑

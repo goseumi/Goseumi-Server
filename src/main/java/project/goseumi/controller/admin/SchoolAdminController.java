@@ -17,17 +17,17 @@ public class SchoolAdminController {
 
     private final SchoolService schoolService;
 
-    @PatchMapping("/info")
-    public ResponseDto<Object> modifiedSchool(@Valid @RequestBody SchoolModifiedRequest schoolModifiedRequest) {
-        schoolService.modified(schoolModifiedRequest);
+//    @PatchMapping("/info")
+//    public ResponseDto<Object> modifiedSchool(@Valid @RequestBody SchoolModifiedRequest schoolModifiedRequest) {
+//        schoolService.modified(schoolModifiedRequest);
+//
+//        return ResponseDto.of("Success modified school information");
+//    }
 
-        return ResponseDto.of("Success modified school information");
-    }
-
-    @PostMapping("")
-    public ResponseDto<Object> registerSchool(@Valid @RequestBody SchoolRegisterRequest schoolRegisterRequest) {
-        schoolService.register(schoolRegisterRequest);
-
-        return ResponseDto.of("Success create new school information");
-    }
+//    @PostMapping("")
+//    public ResponseDto<Object> registerSchool(@Valid @RequestBody SchoolRegisterRequest schoolRegisterRequest) {
+//        schoolService.register(schoolRegisterRequest);
+//
+//        return ResponseDto.of("Success create new school information");
+//    }
 }

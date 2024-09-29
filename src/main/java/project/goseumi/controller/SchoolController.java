@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import project.goseumi.controller.dto.base.PageDto;
 import project.goseumi.controller.dto.base.PageResponseDto;
-import project.goseumi.controller.dto.school.SchoolResponse;
 import project.goseumi.service.SchoolService;
 
 import java.util.List;
@@ -21,18 +20,18 @@ public class SchoolController {
 
     private final SchoolService schoolService;
 
-    @GetMapping("")
-    public PageResponseDto<List<SchoolResponse>> getBasicSchoolList(
-            @RequestParam(name = "id", defaultValue = "") Long id,
-            @RequestParam(name = "name", defaultValue = "") String name,
-            @RequestParam(name = "addressNumber", defaultValue = "") Long addressNumber,
-            @RequestParam(name = "address", defaultValue = "") String address,
-            @RequestParam(name = "page", defaultValue = "0") int page
-    ) {
-        PageDto pageDto = PageDto.of(page);
-
-        List<SchoolResponse> basicSchools = schoolService.getBasicSchools(id, name, addressNumber, address, pageDto);
-        return PageResponseDto.of(basicSchools, "Get School List, Page = " + page, pageDto);
-    }
+//    @GetMapping("")
+//    public PageResponseDto<List<SchoolResponse>> getBasicSchoolList(
+//            @RequestParam(name = "id", defaultValue = "") Long id,
+//            @RequestParam(name = "name", defaultValue = "") String name,
+//            @RequestParam(name = "addressNumber", defaultValue = "") Long addressNumber,
+//            @RequestParam(name = "address", defaultValue = "") String address,
+//            @RequestParam(name = "page", defaultValue = "0") int page
+//    ) {
+//        PageDto pageDto = PageDto.of(page);
+//
+//        List<SchoolResponse> basicSchools = schoolService.getBasicSchools(id, name, addressNumber, address, pageDto);
+//        return PageResponseDto.of(basicSchools, "Get School List, Page = " + page, pageDto);
+//    }
 
 }

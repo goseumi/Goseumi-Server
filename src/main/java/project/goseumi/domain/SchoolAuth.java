@@ -14,7 +14,7 @@ public class SchoolAuth extends BaseEntity {
     private Member member;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "school_id")
+    @JoinColumn(name = "SD_SCHUL_CODE")
     private School school;
 
     @Enumerated(EnumType.STRING)

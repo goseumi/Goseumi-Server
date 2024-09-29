@@ -1,17 +1,47 @@
+-- create table school (
+--     id bigint not null auto_increment,
+--     name varchar(50) not null,
+--     address varchar(50),
+--     address_number bigint,
+--     page_url varchar(255),
+--     created_at datetime(6),
+--     updated_at datetime(6),
+--     primary key (id)
+-- ) engine=InnoDB DEFAULT CHARACTER SET utf8mb4;
+
 create table school (
-    id bigint not null auto_increment,
-    name varchar(50) not null,
-    address varchar(50),
-    address_number bigint,
-    page_url varchar(255),
+    ATPT_OFCDC_SC_CODE varchar(255),
+    ATPT_OFCDC_SC_NM varchar(255),
+    SD_SCHUL_CODE bigint not null,
+    SCHUL_NM varchar(255),
+    ENG_SCHUL_NM varchar(255),
+    SCHUL_KND_SC_NM varchar(255),
+    LCTN_SC_NM varchar(255),
+    JU_ORG_NM varchar(255),
+    FOND_SC_NM varchar(255),
+    ORG_RDNZC varchar(255),
+    ORG_RDNMA varchar(255),
+    ORG_RDNDA varchar(255),
+    ORG_TELNO varchar(255),
+    HMPG_ADRES varchar(255),
+    COEDU_SC_NM varchar(255),
+    ORG_FAXNO varchar(255),
+    HS_SC_NM varchar(255),
+    INDST_SPECL_CCCCL_EXST_YN varchar(255),
+    HS_GNRL_BUSNS_SC_NM varchar(255),
+    SPCLY_PURPS_HS_ORD_NM varchar(255),
+    ENE_BFE_SEHF_SC_NM varchar(255),
+    DGHT_SC_NM varchar(255),
+    FOND_YMD date,
+    FOAS_MEMRD date,
     created_at datetime(6),
     updated_at datetime(6),
-    primary key (id)
-) engine=InnoDB DEFAULT CHARACTER SET utf8mb4;
+    primary key (sd_schul_code)
+    ) engine=InnoDB DEFAULT CHARACTER SET utf8mb4;
 
 create table member (
     id bigint not null auto_increment,
-    school_id bigint,
+    SD_SCHUL_CODE bigint,
     email varchar(255),
     password varchar(255),
     nickname varchar(255),
@@ -24,7 +54,7 @@ create table member (
     created_at datetime(6),
     updated_at datetime(6),
     primary key (id),
-    foreign key (school_id) references school(id)
+    foreign key (SD_SCHUL_CODE) references school(SD_SCHUL_CODE)
 ) engine=InnoDB DEFAULT CHARACTER SET utf8mb4;
 
 create table board_category (
@@ -38,7 +68,7 @@ create table board_category (
 
 create table board (
     id bigint not null auto_increment,
-    school_id bigint,
+    SD_SCHUL_CODE bigint,
     board_category_id bigint,
     member_id bigint,
     title varchar(255),
@@ -47,7 +77,7 @@ create table board (
     created_at datetime(6),
     updated_at datetime(6),
     primary key (id),
-    foreign key (school_id) references school(id),
+    foreign key (SD_SCHUL_CODE) references school(SD_SCHUL_CODE),
     foreign key (board_category_id) references board_category(id),
     foreign key (member_id) references member(id)
 ) engine=InnoDB DEFAULT CHARACTER SET utf8mb4;
@@ -115,7 +145,7 @@ create table message (
 
 create table review (
     id bigint not null auto_increment,
-    school_id bigint,
+    SD_SCHUL_CODE bigint,
     member_id bigint,
     subject varchar(255),
     teacher varchar(255),
@@ -124,14 +154,14 @@ create table review (
     created_at datetime(6),
     updated_at datetime(6),
     primary key (id),
-    foreign key (school_id) references school(id),
+    foreign key (SD_SCHUL_CODE) references school(SD_SCHUL_CODE),
     foreign key (member_id) references member(id)
 ) engine=InnoDB DEFAULT CHARACTER SET utf8mb4;
 
 create table school_auth (
     id bigint not null auto_increment,
     member_id bigint,
-    school_id bigint,
+    SD_SCHUL_CODE bigint,
     accept enum ('YES','NO'),
     reject_reason varchar(255),
     url varchar(255),
@@ -139,7 +169,7 @@ create table school_auth (
     updated_at datetime(6),
     primary key (id),
     foreign key (member_id) references member(id),
-    foreign key (school_id) references school(id)
+    foreign key (SD_SCHUL_CODE) references school(SD_SCHUL_CODE)
 ) engine=InnoDB DEFAULT CHARACTER SET utf8mb4;
 
 create table sessions (

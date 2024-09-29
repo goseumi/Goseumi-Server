@@ -11,7 +11,7 @@ import lombok.Getter;
 public class Review extends BaseEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "school_id")
+    @JoinColumn(name = "SD_SCHUL_CODE")
     private School school;
 
     @ManyToOne(fetch = FetchType.LAZY)

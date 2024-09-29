@@ -1,54 +1,72 @@
 package project.goseumi.domain;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import lombok.Builder;
+import jakarta.persistence.*;
 import lombok.Getter;
-import project.goseumi.controller.admin.dto.school.SchoolModifiedRequest;
-import project.goseumi.controller.admin.dto.school.SchoolRegisterRequest;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
 
-@Getter
+import java.time.LocalDateTime;
+import java.util.Date;
+
 @Entity
-public class School extends BaseEntity {
+@Getter
+public class School {
 
-    @Column(nullable = false, length = 50)
-    private String name;
+    private String ATPT_OFCDC_SC_CODE; //시도교육청코드
 
-    @Column(length = 50)
-    private String address;
+    private String ATPT_OFCDC_SC_NM; //시도교육청명
 
-    @Column
-    private Long addressNumber;
+    @Id
+    private Long SD_SCHUL_CODE; //행정표준코드
 
-    @Column
-    private String pageUrl;
+    private String SCHUL_NM; //학교명
 
-    protected School() {
+    private String ENG_SCHUL_NM; //영문학교명
 
-    }
+    private String SCHUL_KND_SC_NM; //학교종류명
 
-    @Builder
-    protected School(String name, String address, Long addressNumber, String pageUrl) {
-        this.name = name;
-        this.address = address;
-        this.addressNumber = addressNumber;
-        this.pageUrl = pageUrl;
-    }
+    private String LCTN_SC_NM; //시도명
 
-    public static School of(SchoolRegisterRequest schoolRegisterRequest) {
-        return School.builder()
-                .name(schoolRegisterRequest.getName())
-                .address(schoolRegisterRequest.getAddress())
-                .addressNumber(schoolRegisterRequest.getAddressNumber())
-                .pageUrl(schoolRegisterRequest.getPageUrl())
-                .build();
-    }
+    private String JU_ORG_NM; //관할 조직 명
 
-    public void modified(SchoolModifiedRequest request) {
-        this.name = request.getName();
-        this.address = request.getAddress();
-        this.addressNumber = request.getAddressNumber();
-        this.pageUrl = request.getPageUrl();
-    }
+    private String FOND_SC_NM; //설립명
 
+    private String ORG_RDNZC; //도로명 우편번호
+
+    private String ORG_RDNMA; //도로명 주소
+
+    private String ORG_RDNDA; //도로명 상세주소
+
+    private String ORG_TELNO; //전화번호
+
+    private String HMPG_ADRES; //홈페이지 주소
+
+    private String COEDU_SC_NM; //남여공학 구분명
+
+    private String ORG_FAXNO; //팩스번호
+
+    private String HS_SC_NM; //고등학교 구분 명
+
+    private String INDST_SPECL_CCCCL_EXST_YN; //산업체 특별학존재여부
+
+    private String HS_GNRL_BUSNS_SC_NM; //고등학교 일반 전문 구분
+
+    private String SPCLY_PURPS_HS_ORD_NM; //특수 목적 고등학교 계열 명
+
+    private String ENE_BFE_SEHF_SC_NM; //입시 전 후기 구분 명
+
+    private String DGHT_SC_NM; //주 야 구분 명
+
+    @Temporal(TemporalType.DATE)
+    private Date FOND_YMD; //설립일자
+
+    @Temporal(TemporalType.DATE)
+    private Date FOAS_MEMRD; //개교기념일
+
+    @CreatedDate
+    @Column(updatable = false)
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
 }

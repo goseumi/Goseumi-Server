@@ -34,7 +34,7 @@ public class Member extends BaseEntity implements UserDetails {
     private UserStatus status; //유저 상태 ACTIVE, BANNED, DORMANCY
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "school_id")
+    @JoinColumn(name = "SD_SCHUL_CODE")
     private School school;
 
     @Enumerated(EnumType.STRING)
