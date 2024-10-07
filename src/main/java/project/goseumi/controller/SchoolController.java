@@ -24,7 +24,7 @@ public class SchoolController {
     @GetMapping
     public PageResponseDto<List<SchoolResponse>> getSchoolsByName(
             @RequestParam(name = "schul-nm", defaultValue = "") String schulNm,
-            @RequestParam(name = "page", defaultValue = "0") int page
+            @RequestParam(name = "page", defaultValue = "1") int page
     ) {
         PageDto pageDto = PageDto.of(page);
         List<SchoolResponse> result = schoolService.getSchoolsBySchoolName(schulNm, pageDto);

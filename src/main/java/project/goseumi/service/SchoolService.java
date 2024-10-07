@@ -8,11 +8,13 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.goseumi.controller.dto.base.PageDto;
 import project.goseumi.controller.dto.school.SchoolResponse;
 import project.goseumi.domain.School;
+import project.goseumi.repository.SchoolRepository;
 
 import java.util.List;
 
@@ -25,32 +27,18 @@ import static project.goseumi.domain.QSchool.*;
 public class SchoolService {
 
     private final EntityManager em;
+    private final SchoolRepository schoolRepository;
 
 
     /**
      * 학교 리스트 검색
      */
-    public List<SchoolResponse> getSchoolsBySchoolName(String schulNm, PageDto page) {
-        JPAQueryFactory query = new JPAQueryFactory(em);
-        PageRequest pageRequest = PageRequest.of(page.getCurrentPage(), 10);
+    public List<SchoolResponse> getSchoolsBySchoolName(String schulNm, PageDto pageDto) {
+        PageRequest pageRequest = PageRequest.of(pageDto.getCurrentPage() - 1, 10,
+                Sort.by(Sort.Order.asc("schulNm")));
 
-        List<School> result = query.selectFrom(school)
-                .where(
-                        getLikeSchulNm(schulNm))
-                .orderBy(school.schulNm.asc())
-                .offset(pageRequest.getOffset())
-                .limit(pageRequest.getPageSize())
-                .fetch();
-
-        //페이징 처리용 토탈 카운트 반환
-        Long total = query.select(school.count())
-                .from(school)
-                .where(
-                        getLikeSchulNm(schulNm))
-                .fetchOne();
-
-        Page<School> schools = new PageImpl<>(result, pageRequest, total);
-        page.updateTotalPages(schools.getTotalPages());
+        Page<School> schools = schoolRepository.findBySchulNmContains(schulNm, pageRequest);
+        pageDto.updateTotalPages(schools.getTotalPages());
 
         return schools.stream()
                 .map(SchoolResponse::of)
