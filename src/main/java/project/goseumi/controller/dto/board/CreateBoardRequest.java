@@ -26,7 +26,7 @@ public class CreateBoardRequest { // 사용자가 게시글을 작성하면 서�
     public static CreateBoardRequest of(Board board) {
         return CreateBoardRequest.builder()
                 .boardCategoryId(board.getBoardCategory().getId())
-                .schoolId(board.getSchool().getSD_SCHUL_CODE())
+                .schoolId(board.getSchool().getSdSchulCode())
                 .title(board.getTitle())
                 .content(board.getContent())
                 .build();

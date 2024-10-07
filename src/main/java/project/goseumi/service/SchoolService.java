@@ -8,13 +8,12 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import project.goseumi.controller.dto.base.PageDto;
-import project.goseumi.controller.admin.dto.school.SchoolModifiedRequest;
-import project.goseumi.controller.admin.dto.school.SchoolRegisterRequest;
+import project.goseumi.controller.dto.school.SchoolResponse;
 import project.goseumi.domain.School;
-import project.goseumi.exception.BusinessException;
 import project.goseumi.repository.SchoolRepository;
 
 import java.util.List;
@@ -27,9 +26,24 @@ import static project.goseumi.domain.QSchool.*;
 @Transactional(readOnly = true)
 public class SchoolService {
 
-    private final SchoolRepository schoolRepository;
     private final EntityManager em;
+    private final SchoolRepository schoolRepository;
 
+
+    /**
+     * 학교 리스트 검색
+     */
+    public List<SchoolResponse> getSchoolsBySchoolName(String schulNm, PageDto pageDto) {
+        PageRequest pageRequest = PageRequest.of(pageDto.getCurrentPage() - 1, 10,
+                Sort.by(Sort.Order.asc("schulNm")));
+
+        Page<School> schools = schoolRepository.findBySchulNmContains(schulNm, pageRequest);
+        pageDto.updateTotalPages(schools.getTotalPages());
+
+        return schools.stream()
+                .map(SchoolResponse::of)
+                .toList();
+    }
 
 //    public List<SchoolResponse> getBasicSchools(Long id, String name, Long addressNumber, String address, PageDto page) {
 //        JPAQueryFactory query = new JPAQueryFactory(em);
@@ -79,12 +93,12 @@ public class SchoolService {
 //        return addressNumber != null ? school.addressNumber.like("%" + addressNumber + "%") : null;
 //    }
 //
-//    /**
-//     * 학교 검색 동적쿼리 조건 - %학교명%
-//     */
-//    private BooleanExpression getLikeName(String name) {
-//        return !name.equals("") ? school.name.like("%" + name + "%") : null;
-//    }
+    /**
+     * 학교 검색 동적쿼리 조건 - %학교명%
+     */
+    private BooleanExpression getLikeSchulNm(String schulNm) {
+        return !schulNm.equals("") ? school.schulNm.like("%" + schulNm + "%") : null;
+    }
 //
 //    /**
 //     * 학교 검색 동적쿼리 조건 - %아이디%
